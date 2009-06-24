@@ -1,6 +1,6 @@
-package liquibase.sqlgenerator.ext.vacuum;
+package liquibase.ext.vacuum;
 
-import liquibase.sqlstatement.ext.vacuum.VacuumStatement;
+import liquibase.ext.vacuum.VacuumStatement;
 import liquibase.sqlgenerator.SqlGenerator;
 import liquibase.sqlgenerator.SqlGeneratorChain;
 import liquibase.database.Database;
@@ -23,8 +23,12 @@ public class VacuumPostgres implements SqlGenerator<VacuumStatement> {
     }
 
     public Sql[] generateSql(VacuumStatement vacuumStatement, Database database, SqlGeneratorChain sqlGeneratorChain) {
+        String sql = "VACUUM";
+        if (vacuumStatement.getTableName() != null) {
+            sql += " "+database.escapeTableName(vacuumStatement.getSchemaName(), vacuumStatement.getTableName());
+        }
         return new Sql[] {
-                new UnparsedSql("VACUUM")
+                new UnparsedSql(sql)
         };
     }
 }
