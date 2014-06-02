@@ -1,0 +1,19 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:vacuum="http://www.liquibase.org/xml/ns/ext/vacuum"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext/vacuum http://www.liquibase.org/xml/ns/dbchangelog-ext/vacuum-1.0.xsd">
+
+    <changeSet id="1" author="nvoxland">
+        <createTable tableName="vacuumtest">
+            <column name="id" type="int"/>
+            <column name="name" type="varchar(50)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="nvoxland" runInTransaction="false">
+        <vacuum:vacuum tableName="vacuumtest"/>
+    </changeSet>
+
+</databaseChangeLog>
