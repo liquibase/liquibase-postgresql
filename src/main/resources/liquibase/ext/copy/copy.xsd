@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://www.liquibase.org/xml/ns/dbchangelog-ext/copy"
+            xmlns="http://www.liquibase.org/xml/ns/dbchangelog-ext/copy"
+            elementFormDefault="qualified">
+
+    <xsd:element name="copy">
+    	<xsd:complexType>
+    		<xsd:attribute name="path" use="required" />
+    		<xsd:attribute name="tableName" use="required" />
+    		<xsd:attribute name="schemaName" use="optional" />
+    		<xsd:attribute name="catalogName" use="optional" />
+    	</xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>
