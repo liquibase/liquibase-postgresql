@@ -10,6 +10,7 @@ import liquibase.change.ChangeMetaData;
 import liquibase.change.DatabaseChange;
 import liquibase.change.DatabaseChangeProperty;
 import liquibase.database.Database;
+import liquibase.exception.DatabaseException;
 import liquibase.exception.SetupException;
 import liquibase.exception.ValidationErrors;
 import liquibase.statement.SqlStatement;
@@ -21,54 +22,52 @@ import liquibase.util.StringUtils;
  * <p/>
  * To create an instance call the constructor as normal and then call
  *
- * @author <a href="mailto:s@escendit.com">Simon Novak</a>
- * @link{#setResourceAccesssor(ResourceAccessor)} before calling setPath otherwise the
- * file will likely not be found.
+ * @author <a href="mailto:s@escendit.com">Simon
+ *         Novak</a> @link{#setResourceAccesssor(ResourceAccessor)} before
+ *         calling setPath otherwise the file will likely not be found.
  */
-@DatabaseChange(name = "copy",
-        description = "The 'copy' tag allows you to specify any copy file and have it stored externally in a file. It is useful for fast importing of data that are not supported through LiquiBase's subsystem.\n",
-        priority = ChangeMetaData.PRIORITY_DEFAULT)
+@DatabaseChange(name = "copy", description = "The 'copy' tag allows you to specify any copy file and have it stored externally in a file. It is useful for fast importing of data that are not supported through LiquiBase's subsystem.\n", priority = ChangeMetaData.PRIORITY_DEFAULT)
 public class CopyChange extends AbstractChange {
 
-	/**
-	 * 
-	 */
-	private String path;
-	
-	/**
-	 * 
-	 */
-	private Boolean relativeToChangelogFile = false;
-	
-	/**
-	 * 
-	 */
-    private String catalogName;
-    
     /**
-     * 
+     *
+     */
+    private String path;
+
+    /**
+     *
+     */
+    private Boolean relativeToChangelogFile = false;
+
+    /**
+     *
+     */
+    private String catalogName;
+
+    /**
+     *
      */
     private String schemaName;
-    
+
     /**
-     * 
+     *
      */
     private String tableName;
-    
+
     /**
-     * 
+     *
      */
     private String encoding;
-    
-	/**
-	 * 
-	 * @return
-	 */
+
+    /**
+     *
+     * @return
+     */
     @DatabaseChangeProperty(description = "The file path of the COPY file to load", requiredForDatabase = "postgres", exampleValue = "my/path/file.sql")
     public String getPath() {
         return path;
     }
-    
+
     /**
      * Sets the file name but setUp must be called for the change to have impact.
      *
@@ -77,7 +76,7 @@ public class CopyChange extends AbstractChange {
     public void setPath(String fileName) {
         path = fileName;
     }
-    
+
     /**
      * The encoding of the file containing SQL statements
      *
@@ -94,9 +93,9 @@ public class CopyChange extends AbstractChange {
     public void setEncoding(String encoding) {
         this.encoding = encoding;
     }
-    
+
     /**
-     * 
+     *
      * @return
      */
     public Boolean isRelativeToChangelogFile() {
@@ -104,15 +103,15 @@ public class CopyChange extends AbstractChange {
     }
 
     /**
-     * 
+     *
      * @param relativeToChangelogFile
      */
     public void setRelativeToChangelogFile(Boolean relativeToChangelogFile) {
         this.relativeToChangelogFile = relativeToChangelogFile;
     }
-    
+
     /**
-     * 
+     *
      * @return
      */
     public String getCatalogName() {
@@ -139,45 +138,39 @@ public class CopyChange extends AbstractChange {
         this.tableName = tableName;
     }
 
-	@Override
-	public SqlStatement[] generateStatements(Database arg0) {
-		List<SqlStatement> ret = new ArrayList<SqlStatement>();
-		try {
-			ret.add(new CopyStatement(openSqlStream(), schemaName, tableName));
-		} catch (IOException e) {
-			
-		}
-		return ret.toArray(new SqlStatement[ret.size()]);
-	}
-	
-	@Override
+    @Override
+    public SqlStatement[] generateStatements(Database arg0) {
+        List<SqlStatement> ret = new ArrayList<SqlStatement>();
+        ret.add(new CopyStatement(openSqlStream(), schemaName, tableName));
+        return ret.toArray(new SqlStatement[ret.size()]);
+    }
+
+    @Override
     public void finishInitialization() throws SetupException {
         if (path == null) {
             throw new SetupException("<copy> - No path specified");
         }
-        
-        if(tableName == null) {
-        	throw new SetupException("<copy> - No tableName specified");
+
+        if (tableName == null) {
+            throw new SetupException("<copy> - No tableName specified");
         }
     }
-	
-	public InputStream openSqlStream() throws IOException {
+
+    public InputStream openSqlStream() {
         if (path == null) {
             return null;
         }
 
         InputStream inputStream = null;
         try {
-            inputStream = StreamUtil.openStream(path, isRelativeToChangelogFile(), getChangeSet(), getResourceAccessor());
-        } catch (IOException e) {
-            throw new IOException("Unable to read file '" + path + "'", e);
+            inputStream = StreamUtil.openStream(path, isRelativeToChangelogFile(), getChangeSet(),
+                    getResourceAccessor());
+        } catch (Exception e) {
         }
-        if (inputStream == null) {
-            throw new IOException("File does not exist: '" + path + "'");
-        }
+
         return inputStream;
     }
-	
+
     @Override
     public ValidationErrors validate(Database database) {
         ValidationErrors validationErrors = new ValidationErrors();

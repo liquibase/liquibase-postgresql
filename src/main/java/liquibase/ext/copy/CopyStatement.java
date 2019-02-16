@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 
-import org.postgresql.PGConnection;
 import org.postgresql.core.BaseConnection;
 import org.postgresql.copy.CopyManager;
 
