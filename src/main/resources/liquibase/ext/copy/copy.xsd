@@ -11,6 +11,7 @@
     		<xsd:attribute name="tableName" use="required" />
     		<xsd:attribute name="schemaName" use="optional" />
     		<xsd:attribute name="catalogName" use="optional" />
+			<xsd:attribute name="relativeToChangelogFile" use="optional" />
     	</xsd:complexType>
     </xsd:element>
 
