@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import liquibase.Scope;
 import liquibase.change.AbstractChange;
 import liquibase.change.ChangeMetaData;
 import liquibase.change.DatabaseChange;
@@ -15,7 +16,7 @@ import liquibase.exception.SetupException;
 import liquibase.exception.ValidationErrors;
 import liquibase.statement.SqlStatement;
 import liquibase.util.StreamUtil;
-import liquibase.util.StringUtils;
+import liquibase.util.StringUtil;
 
 /**
  * Represents a Change for custom COPY FROM STDIN stored in a File.
@@ -163,8 +164,12 @@ public class CopyChange extends AbstractChange {
 
         InputStream inputStream = null;
         try {
-            inputStream = StreamUtil.openStream(path, isRelativeToChangelogFile(), getChangeSet(),
-                    getResourceAccessor());
+            String relativeTo = null;
+            if (isRelativeToChangelogFile()) {
+                relativeTo = getChangeSet().getChangeLog().getPhysicalFilePath();
+            }
+
+            inputStream = Scope.getCurrentScope().getResourceAccessor().openStream(relativeTo, path);
         } catch (Exception e) {
         }
 
@@ -174,11 +179,11 @@ public class CopyChange extends AbstractChange {
     @Override
     public ValidationErrors validate(Database database) {
         ValidationErrors validationErrors = new ValidationErrors();
-        if (StringUtils.trimToNull(getPath()) == null) {
+        if (StringUtil.trimToNull(getPath()) == null) {
             validationErrors.addError("'path' is required");
         }
         
-        if(StringUtils.trimToNull(getTableName()) == null) {
+        if(StringUtil.trimToNull(getTableName()) == null) {
         	validationErrors.addError("'tableName' is required");
         }
         return validationErrors;
