@@ -166,6 +166,27 @@
 						<nexusUrl>https://oss.sonatype.org/service/local/staging/deploy/maven2/</nexusUrl>
 					</configuration>
 				</plugin>
+				<plugin>
+    					<groupId>org.apache.maven.plugins</groupId>
+    					<artifactId>maven-javadoc-plugin</artifactId>
+					<configuration>
+						<author>false</author>
+        					<doctitle>Liquibase CDI ${project.version} API</doctitle>
+        					<quiet>true</quiet>
+        					<doclint>none</doclint>
+        					<encoding>UTF-8</encoding>
+        					<jarOutputDirectory>${project.basedir}/target</jarOutputDirectory>
+    					</configuration>
+    					<executions>
+        					<execution>
+            						<id>jar-javadoc</id>
+            						<goals>
+                						<goal>jar</goal>
+            						</goals>
+            						<phase>package</phase>
+        					</execution>
+    					</executions>
+				</plugin>
 			</plugins>
 
 		</pluginManagement>
