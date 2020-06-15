@@ -4,7 +4,7 @@
 
 	<groupId>org.liquibase.ext</groupId>
 	<artifactId>liquibase-postgresql</artifactId>
-	<version>3.10-SNAPSHOT</version>
+	<version>3.10.0</version>
 
 	<name>Liquibase Postgresql Database Extension</name>
 	<description>Adds additional Postgresql-specific Liquibase functionality</description>
@@ -29,7 +29,7 @@
 	<scm>
 		<connection>scm:git:http://github.com/liquibase/liquibase-postgresql.git</connection>
 		<url>https://github.com/liquibase/liquibase-postgresql</url>
-	  <tag>HEAD</tag>
+	  <tag>liquibase-postgresql-3.10.0</tag>
   </scm>
 
 	<developers>
