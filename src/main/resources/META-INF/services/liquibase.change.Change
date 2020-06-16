@@ -1,0 +1,2 @@
+liquibase.ext.copy.CopyChange
+liquibase.ext.vacuum.VacuumChange
