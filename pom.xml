@@ -4,7 +4,7 @@
 
 	<groupId>org.liquibase.ext</groupId>
 	<artifactId>liquibase-postgresql</artifactId>
-	<version>4.0.0-SNAPSHOT</version>
+	<version>4.0.0-beta2-SNAPSHOT</version>
 
 	<name>Liquibase Postgresql Database Extension</name>
 	<description>Adds additional Postgresql-specific Liquibase functionality</description>
@@ -29,7 +29,8 @@
 	<scm>
 		<connection>scm:git:http://github.com/liquibase/liquibase-postgresql.git</connection>
 		<url>https://github.com/liquibase/liquibase-postgresql</url>
-	</scm>
+	  <tag>HEAD</tag>
+  </scm>
 
 	<developers>
 		<developer>
@@ -70,7 +71,7 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>42.2.12</version>
+			<version>42.2.14</version>
 		</dependency>
 	</dependencies>
 
@@ -165,6 +166,27 @@
 						<nexusUrl>https://oss.sonatype.org/service/local/staging/deploy/maven2/</nexusUrl>
 					</configuration>
 				</plugin>
+				<plugin>
+    					<groupId>org.apache.maven.plugins</groupId>
+    					<artifactId>maven-javadoc-plugin</artifactId>
+					<configuration>
+						<author>false</author>
+        					<doctitle>Liquibase CDI ${project.version} API</doctitle>
+        					<quiet>true</quiet>
+        					<doclint>none</doclint>
+        					<encoding>UTF-8</encoding>
+        					<jarOutputDirectory>${project.basedir}/target</jarOutputDirectory>
+    					</configuration>
+    					<executions>
+        					<execution>
+            						<id>jar-javadoc</id>
+            						<goals>
+                						<goal>jar</goal>
+            						</goals>
+            						<phase>package</phase>
+        					</execution>
+    					</executions>
+				</plugin>
 			</plugins>
 
 		</pluginManagement>
@@ -198,6 +220,17 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
+    						<version>1.6</version>
+                				<configuration>
+                    					<passphrase>${env.GPG_PASSPHRASE}</passphrase>
+                    					<gpgArguments>
+                        					<!-- This is necessary for gpg to not try to use the pinentry programs -->
+                        					<arg>--batch</arg>
+                        					<arg>--no-tty</arg>
+                        					<arg>--pinentry-mode</arg>
+                        					<arg>loopback</arg>
+                    					</gpgArguments>
+                				</configuration>
 						<executions>
 							<execution>
 								<id>sign-artifacts</id>
