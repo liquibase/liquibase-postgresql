@@ -3,8 +3,7 @@
 
 name: Build and Test Extention
 
-on:
-  [ push, pull_request]
+on: [ push, pull_request]
 
 jobs:
   build:
@@ -38,9 +37,10 @@ jobs:
         distribution: 'adopt'
     - name: Build With Maven
       run: mvn -B package --file pom.xml
+    # - name: Copy Artifacts
+    #   run: mkdir staging && cp target/*.jar staging
     - name: Upload Artifacts
-      run: mkdir staging && cp target/*.jar staging
       uses: actions/upload-artifact@v2
       with:
         name: Package
-        path: staging
+        path: target/*.jar
