@@ -14,6 +14,16 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres-alpine
+        env:
+          POSTGRES_USER: lbtest
+          POSTGRES_PASSWORD: lbtest
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 8
