@@ -16,10 +16,11 @@ jobs:
     strategy:
       matrix:
         java: [8, 11, 16]
+        postgres: [9, 10, 11, 12, 13]
 
     services:
       postgres:
-        image: postgres:alpine
+        image: postgres:${{ matrix.postgres }}
         env:
           POSTGRES_USER: lbtest
           POSTGRES_PASSWORD: lbtest
