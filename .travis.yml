@@ -1,9 +1,0 @@
-language: java
-jdk: openjdk8
-
-services:
-  - docker
-
-before_script:
-- docker pull postgres
-- docker run -p 5432:5432 -e POSTGRES_PASSWORD=lbtest -e POSTGRES_USER=lbtest -d postgres
