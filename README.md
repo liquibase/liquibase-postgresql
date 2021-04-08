@@ -1,4 +1,4 @@
-# Liquibase Postgresql Extension [![Build](https://github.com/liquibase/liquibase-postgresql/actions/workflows/maven.yml/badge.svg)](https://github.com/liquibase/liquibase-postgresql/actions/workflows/maven.yml)
+# Liquibase Postgresql Extension [![Build](https://github.com/liquibase/liquibase-postgresql/actions/workflows/build.yml/badge.svg)](https://github.com/liquibase/liquibase-postgresql/actions/workflows/maven.yml)
 
 ## Usage
 
