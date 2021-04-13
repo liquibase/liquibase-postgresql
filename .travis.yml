@@ -7,3 +7,4 @@ services:
 before_install:
 - docker pull postgres
 - docker run -p 5432:5432 -e POSTGRES_USER=lbtest -e POSTGRES_PASSWORD=lbtest  -e POSTGRES_DB=lbtest postgres
+- docker ps -a
