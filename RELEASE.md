@@ -5,14 +5,29 @@ The release automation is designed to quickly release updates to liquibase exten
 ### Pull Request Opened
 When all pull requests are opened the Unit Tests will run and they must pass before the PR can be merged. For a liquibase core bump PR, the application version in the POM will automatically be set to match the liquibase core version. If creating a manual PR for release, the `<version>*.*.*</version>` tag in the POM will need to be set to the correct version without the `SNAPSHOT` suffix in order to release to Sonatype Nexus. For example, `<version>4.3.5.1/version>` to release a patch version for the extension release for liquibase core 4.3.5. 
 ### Pull Request Labeled as Release Candidate
-If the `Extension Release Candidate :rocket:` label is applied to the PR, this is the trigger for Github Actions to run the full Integration Test suite matrix on the pull requests because this commit will become the next release. For a liquibase core bump, this label will automatically be applied to the dependabot PR. If this is a manual release, manually applying the label will also start the release testing and subsequent automation.
+If the `Extension Release Candidate :rocket:` label is applied to the PR, this is the trigger for GitHub Actions to run the full Integration Test suite matrix on the pull requests because this commit will become the next release. For a liquibase core bump, this label will automatically be applied to the dependabot PR. If this is a manual release, manually applying the label will also start the release testing and subsequent automation.
 ### Pull Request is Approved and Merged to Main
 If a Pull Request is merged into main and is labeled as release candidate the following automation steps will be taken:
 *   Signed artifact is built
-*   A draft Github Release is created proper tagging, version name, and artifact
+*   A draft GitHub Release is created proper tagging, version name, and artifact
 *   The application version in the POM is bumped to be the next SNAPSHOT version for development
 ### Draft Release is Published
-Once the Github release is published, the signed artifact is uploaded to Sonatype Nexus. The `<autoReleaseAfterClose>true</autoReleaseAfterClose>` option is defined in the POM, so for all releases without the `SNAPSHOT` suffix, they will automatically release after all of the staging test have passed. If everything goes well, no further manual action is required. 
+Once the GitHub release is published, the signed artifact is uploaded to Sonatype Nexus. The `<autoReleaseAfterClose>true</autoReleaseAfterClose>` option is defined in the POM, so for all releases without the `SNAPSHOT` suffix, they will automatically release after all the staging test have passed. If everything goes well, no further manual action is required. 
+
+## Testing
+The workflow separates Unit Test from Integration Tests and runs them at separate times, as mentioned above. In order to separate the tests, they must be in separate files. Put all Unit Tests into files that end with `Test.java` and Integration Test files should end with `IT.java`. For example the tests for the Liquibase Postgresql Extension now look like:
+```
+> src
+    > test
+        > java
+            > liquibase.ext
+                > copy
+                    CopyChangeIT.java
+                    CopyChangeTest.java
+                > vacuum
+                    VacuumChangeTest.java
+```
+Any tests that require a JDBC connection to a running database are integration tests and should be in the `IT.java` files.
 
 ## Repository Configuration
 The automation requires the below secrets and configuration in order to run.
