@@ -130,8 +130,8 @@
 						</goals>
 						<configuration>
 							<includes>
-								<include>**/*IT.*</include>
-								<include>**/*Tests.*</include>
+								<include>**/*IT.java</include>
+								<include>**/*Test.java</include>
 							</includes>
 						</configuration>
 					</execution>
