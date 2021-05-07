@@ -42,7 +42,7 @@ jobs:
           gpg-passphrase: GPG_PASSPHRASE
 
       - name: Build With Maven
-        run: mvn clean deploy -Dmaven.test.skip
+        run: mvn clean install -Dmaven.test.skip
         env:
           MAVEN_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.SONATYPE_TOKEN }}
