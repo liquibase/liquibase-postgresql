@@ -42,7 +42,7 @@ jobs:
           gpg-passphrase: GPG_PASSPHRASE
 
       - name: Build With Maven
-        run: mvn clean deploy -Dmaven.test.skip
+        run: mvn clean install -Dmaven.test.skip
         env:
           MAVEN_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.SONATYPE_TOKEN }}
@@ -131,4 +131,6 @@ jobs:
           mvn versions:set -DnextSnapshot=true
           git add pom.xml
           git commit -m "Version Bumped to Snapshot for Developent"
-          git push "https://liquibot:${{ secrets.BOT_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" HEAD:${{ github.event.pull_request.head.ref }} --follow-tags --tags
+          git push "https://liquibot:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git" HEAD:${{ github.event.pull_request.head.ref }} --follow-tags --tags
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
