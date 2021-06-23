@@ -41,7 +41,7 @@ public class CopyPostgres extends AbstractSqlGenerator<CopyStatement> {
 			sql += "COPY ";
 			sql += database.escapeTableName(statement.getCatalogName(), 
 					statement.getSchemaName(), statement.getTableName());
-			sql += " FROM STDIN;" + "\n";
+			sql += " FROM STDIN; " + "\n";
 			
 			BufferedReader reader = new BufferedReader(new InputStreamReader(statement.getInputStream()));
 	        StringBuilder out = new StringBuilder();
