@@ -20,6 +20,8 @@ jobs:
         uses: actions/github-script@v4
         with:
           script: |
+            console.log(context.payload);
+
             if (github.event.client_payload) {
                 core.setOutput("liquibaseVersion", github.event.client_payload.liquibaseVersion);
                 core.setOutput("extensionVersion", github.event.client_payload.liquibaseVersion);
