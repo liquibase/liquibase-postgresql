@@ -22,12 +22,12 @@ jobs:
           script: |
             console.log(context.payload);
 
-            if (github.event.client_payload) {
-                core.setOutput("liquibaseVersion", github.event.client_payload.liquibaseVersion);
-                core.setOutput("extensionVersion", github.event.client_payload.liquibaseVersion);
-            } else if (github.event.inputs) {
-                core.setOutput("liquibaseVersion", github.event.inputs.liquibaseVersion);
-                core.setOutput("extensionVersion", github.event.inputs.extensionVersion || github.event.inputs.liquibaseVersion);
+            if (context.payload.client_payload) {
+                core.setOutput("liquibaseVersion", context.payload.client_payload.liquibaseVersion);
+                core.setOutput("extensionVersion", context.payload.client_payload.liquibaseVersion);
+            } else if (context.payload.inputs) {
+                core.setOutput("liquibaseVersion", context.payload.inputs.liquibaseVersion);
+                core.setOutput("extensionVersion", context.payload.inputs.extensionVersion || context.payload.inputs.liquibaseVersion);
             } else {
               core.setFailed('Unknown event type')
             }
