@@ -1,13 +1,28 @@
-name: Manually triggered workflow
+name: Release Extension (v2)
 on:
   repository_dispatch:
     types: [liquibase-release]
-
+  workflow_dispatch:
+    inputs:
+      liquibaseVersion:
+        description: 'Liquibase Version'
+        required: true
+      extensionVersion:
+        description: 'Extension Version (Defaults to Liquibase Version)'
+        required: false
 
 jobs:
   say_hello:
     runs-on: ubuntu-latest
     steps:
+      - name: Collect Data
+        id: collect-data
+        uses: actions/github-script@v4
+        with:
+          script: |
+            core.setOutput("liquibaseVersion", "${{ github.event.client_payload.liquibaseVersion || github.event.inputs.version }}");
+            core.setOutput("extensionVersion", "${{ github.event.inputs.version || steps.collect-data.outputs.liquibaseVersion }}");
+
       - run: |
-          echo "Saw event ${{ github.event }}"
-          echo "Saw release ${{ github.event.client_payload.liquibaseVersion }}"
+          echo "Saw Liquibase version ${{ steps.collect-data.outputs.liquibaseVersion }}"
+          echo "Saw Extension version ${{ steps.collect-data.outputs.liquibaseVersion }}"
