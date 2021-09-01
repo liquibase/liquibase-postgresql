@@ -20,8 +20,15 @@ jobs:
         uses: actions/github-script@v4
         with:
           script: |
-            core.setOutput("liquibaseVersion", github.event.client_payload.liquibaseVersion || github.event.inputs.version);
-            core.setOutput("extensionVersion", github.event.inputs.version || steps.collect-data.outputs.liquibaseVersion);
+            if (github.event.client_payload) {
+                core.setOutput("liquibaseVersion", github.event.client_payload.liquibaseVersion);
+                core.setOutput("extensionVersion", github.event.client_payload.liquibaseVersion);
+            } else if (github.event.inputs) {
+                core.setOutput("liquibaseVersion", github.event.inputs.liquibaseVersion);
+                core.setOutput("extensionVersion", github.event.inputs.extensionVersion || github.event.inputs.liquibaseVersion);
+            } else {
+              core.setFailed('Unknown event type')
+            }
 
       - run: |
           echo "Saw Liquibase version ${{ steps.collect-data.outputs.liquibaseVersion }}"
