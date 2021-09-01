@@ -1,0 +1,13 @@
+name: Manually triggered workflow
+on:
+  repository_dispatch:
+    types: [liquibase-release]
+
+
+jobs:
+  say_hello:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Saw event ${{ github.event }}"
+          echo "Saw release ${{ github.event.client_payload.liquibaseVersion }}"
