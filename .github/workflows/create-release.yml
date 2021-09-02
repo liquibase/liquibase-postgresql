@@ -172,7 +172,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          target_commitish: ${{ ${{ needs.build.outputs.releaseSha }} }}
+          target_commitish: ${{ needs.build.outputs.releaseSha }}
           name: v${{ needs.setup.outputs.extensionVersion }}
           tag_name: liquibase-postgresql-${{ needs.setup.outputs.extensionVersion }}
           draft: true
