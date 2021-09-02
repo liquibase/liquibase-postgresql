@@ -81,11 +81,11 @@ jobs:
           repo: "liquibase/liquibase"
           version: "tags/v${{ needs.setup.outputs.liquibaseVersion }}"
           file: "liquibase-${{ needs.setup.outputs.liquibaseVersion }}.jar"
-          target: "download/liquibase.jar"
+          target: "liquibase.jar"
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install liquibase.jar
-        run: mvn -B org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file -Dfile=download/liquibase.jar
+        run: mvn -B org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file -Dfile=liquibase.jar
 
       - name: Update pom.xml with release versions and commit changes
         run: |
