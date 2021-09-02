@@ -155,7 +155,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: test-reports-integration-jdk${{ matrix.java }}-postgresql${{ matrix.postgres }}
-          path: ./**/target/failsafe-reports
+          path: ./**/target/surefire-reports
 
   draft-release:
     needs: [ setup, build, integration-tests ]
