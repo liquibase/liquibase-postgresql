@@ -75,6 +75,18 @@ jobs:
           git config user.name "liquibot"
           git config user.email "liquibot@liquibase.org"
 
+      - name: Download liquibase.jar
+        uses: dsaltares/fetch-gh-release-asset@master
+        with:
+          repo: "liquibase/liquibase"
+          version: "tags/${{ needs.setup.outputs.liquibaseVersion }}"
+          file: "liquibase-${{ needs.setup.outputs.liquibaseVersion }}.jar"
+          target: "download/liquibase.jar"
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install liquibase.jar
+        run: mvn -B org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file -Dfile=download/liquibase.jar
+
       - name: Update pom.xml with release versions and commit changes
         run: |
           mvn -B versions:set -DnewVersion=${{ needs.setup.outputs.extensionVersion }} -DallowSnapshots=false -DoldVersion="*"
@@ -210,7 +222,7 @@ jobs:
           git config user.name "liquibot"
           git config user.email "liquibot@liquibase.org"
 
-      - name: Bump POM Version for Development
+      - name: Prepare code for next version
         run: |
           git pull
           mvn -B versions:set -DnextSnapshot=true
