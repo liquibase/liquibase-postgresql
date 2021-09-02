@@ -45,4 +45,4 @@ jobs:
       with:
         name: liquibase-postgresql
         path: |
-          liquibase-dist/target/*.jar
+          target/*.jar
