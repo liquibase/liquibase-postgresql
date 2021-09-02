@@ -75,11 +75,11 @@ jobs:
           git config user.name "liquibot"
           git config user.email "liquibot@liquibase.org"
 
-      - name: Download liquibase.jar
+      - name: Download and install liquibase.jar
         uses: dsaltares/fetch-gh-release-asset@master
         with:
           repo: "liquibase/liquibase"
-          version: "tags/${{ needs.setup.outputs.liquibaseVersion }}"
+          version: "tags/v${{ needs.setup.outputs.liquibaseVersion }}"
           file: "liquibase-${{ needs.setup.outputs.liquibaseVersion }}.jar"
           target: "download/liquibase.jar"
           token: ${{ secrets.GITHUB_TOKEN }}
