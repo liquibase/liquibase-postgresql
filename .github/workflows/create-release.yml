@@ -212,6 +212,7 @@ jobs:
 
       - name: Bump POM Version for Development
         run: |
+          git pull
           mvn -B versions:set -DnextSnapshot=true
           git add pom.xml
           git commit -m "Version Bumped to Snapshot for Development"
