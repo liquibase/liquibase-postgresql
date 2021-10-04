@@ -36,7 +36,7 @@ jobs:
 
       - run: |
           echo "Saw Liquibase version ${{ steps.collect-data.outputs.liquibaseVersion }}"
-          echo "Saw Extension version ${{ steps.collect-data.outputs.liquibaseVersion }}"
+          echo "Saw Extension version ${{ steps.collect-data.outputs.extensionVersion }}"
 
   build:
     name: "Build and Test"
