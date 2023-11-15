@@ -14,7 +14,7 @@ jobs:
     # Only run job if untagged as release. Will run for all PRs and release PRs during the first run.
     strategy:
       matrix:
-        java: [8, 11, 16]
+        java: [8, 11, 17, 21]
 
     steps:
     - uses: actions/checkout@v2
@@ -26,10 +26,10 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-maven-
     - name: Set up JDK ${{ matrix.java }}
-      uses: actions/setup-java@v2
+      uses: actions/setup-java@v3
       with:
         java-version: ${{ matrix.java }}
-        distribution: 'adopt'
+        distribution: 'temurin'
     - name: Run Unit Tests With Maven
       run: mvn -B clean test --file pom.xml
 
