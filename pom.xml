@@ -16,6 +16,10 @@
 	<description>Adds additional Postgresql-specific Liquibase functionality</description>
 	<url>https://github.com/liquibase/liquibase-postgresql</url>
 
+	<properties>
+        <liquibase.version>4.25.1</liquibase.version>
+    	</properties>
+	
 	<scm>
         <connection>scm:git:${project.scm.url}</connection>
         <developerConnection>scm:git:${project.scm.url}</developerConnection>
