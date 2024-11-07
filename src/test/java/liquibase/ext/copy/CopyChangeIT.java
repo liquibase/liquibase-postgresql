@@ -23,7 +23,9 @@ public class CopyChangeIT {
 
     @BeforeAll
     public static void setup() {
+        System.out.println("Before startup strategy");
         postgres.setStartupCheckStrategy(new IsRunningStartupCheckStrategy());
+        System.out.println("Before startup");
         postgres.start();
     }
 
@@ -34,6 +36,7 @@ public class CopyChangeIT {
 
     @Test
     public void test() throws Exception {
+        System.out.println("In test");
         String url = postgres.getJdbcUrl();
         final Driver driver = (Driver) Class.forName(DatabaseFactory.getInstance().findDefaultDriver(url), true, Thread.currentThread().getContextClassLoader()).newInstance();
 
