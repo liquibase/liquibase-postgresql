@@ -11,10 +11,12 @@ import liquibase.sql.UnparsedSql;
 import liquibase.sqlgenerator.core.AbstractSqlGenerator;
 
 public class VacuumPostgres extends AbstractSqlGenerator<VacuumStatement> {
+    @Override
     public int getPriority() {
         return 15;
     }
 
+    @Override
     public boolean supports(VacuumStatement vacuumStatement, Database database) {
         return database instanceof PostgresDatabase;
     }

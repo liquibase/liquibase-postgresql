@@ -141,7 +141,7 @@ public class CopyChange extends AbstractChange {
 
     @Override
     public SqlStatement[] generateStatements(Database arg0) {
-        List<SqlStatement> ret = new ArrayList<SqlStatement>();
+        List<SqlStatement> ret = new ArrayList<>();
         ret.add(new CopyStatement(openSqlStream(), schemaName, tableName));
         return ret.toArray(new SqlStatement[ret.size()]);
     }
@@ -170,7 +170,8 @@ public class CopyChange extends AbstractChange {
             }
 
             inputStream = Scope.getCurrentScope().getResourceAccessor().openStream(relativeTo, path);
-        } catch (Exception e) {
+        } catch (Exception openSqlException) {
+            Scope.getCurrentScope().getLog(getClass()).severe("Could not read sql!", openSqlException);
         }
 
         return inputStream;
