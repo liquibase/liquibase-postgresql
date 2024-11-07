@@ -5,9 +5,9 @@ import liquibase.database.DatabaseFactory;
 import liquibase.database.jvm.JdbcConnection;
 import liquibase.exception.DatabaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 import java.sql.Connection;
@@ -20,13 +20,13 @@ public class CopyChangeIT {
             "postgres:16-alpine"
     );
 
-    @Before
-    public void setup() {
+    @BeforeAll
+    public static void setup() {
         postgres.start();
     }
 
-    @After
-    public void stop() {
+    @AfterAll
+    public static void stop() {
         postgres.stop();
     }
 
