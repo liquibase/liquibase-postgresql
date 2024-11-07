@@ -9,6 +9,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.containers.startupcheck.IsRunningStartupCheckStrategy;
 
 import java.sql.Connection;
 import java.sql.Driver;
@@ -22,6 +23,7 @@ public class CopyChangeIT {
 
     @BeforeAll
     public static void setup() {
+        postgres.setStartupCheckStrategy(new IsRunningStartupCheckStrategy());
         postgres.start();
     }
 
