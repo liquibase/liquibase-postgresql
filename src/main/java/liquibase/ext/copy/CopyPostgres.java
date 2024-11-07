@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import liquibase.Scope;
 import liquibase.database.Database;
 import liquibase.database.core.PostgresDatabase;
 import liquibase.exception.ValidationErrors;
@@ -53,9 +54,8 @@ public class CopyPostgres extends AbstractSqlGenerator<CopyStatement> {
 	        sql += "\\."; // End with \. for textual inputs
 			sql += out.toString();	
 			ret.add(new UnparsedSql(sql));
-		} catch (IOException e) {
-			// TODO: handle exception
-			// Don't know how to handle this kind of problem ...
+		} catch (IOException ioException) {
+			Scope.getCurrentScope().getLog(getClass()).severe("Could not parse copy statement!", ioException);
 		}
 		
 		return ret.toArray(new Sql[ret.size()]);
