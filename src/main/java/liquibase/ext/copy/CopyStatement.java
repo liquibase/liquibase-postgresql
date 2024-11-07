@@ -10,6 +10,7 @@ import org.postgresql.core.BaseConnection;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
@@ -125,21 +126,20 @@ public class CopyStatement implements ExecutablePreparedStatement {
 
     @Override
     public void execute(PreparedStatementFactory factory) throws DatabaseException {
-        try {
-            Connection connection = factory.create("select 1").getConnection();
+        try (PreparedStatement preparedStatement = factory.create("select 1");
+             PostgresDatabase database = new PostgresDatabase()) {
+            Connection connection = preparedStatement.getConnection();
             if (connection instanceof BaseConnection) {
                 BaseConnection con = (BaseConnection) connection;
 
-                String escapedTable = new PostgresDatabase().escapeTableName(catalogName, schemaName, tableName);
+                String escapedTable = database.escapeTableName(catalogName, schemaName, tableName);
                 String sql = "COPY " + escapedTable + " FROM STDIN";
                 CopyManager manager = new CopyManager(con);
                 manager.copyIn(sql, inputStream);
             } else {
                 throw new DatabaseException("Only postgresql support for Copy");
             }
-        } catch (IOException e) {
-            throw new DatabaseException(e.getMessage(), e);
-        } catch (SQLException e) {
+        } catch (IOException | SQLException e) {
             throw new DatabaseException(e.getMessage(), e);
         }
     }
