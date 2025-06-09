@@ -19,7 +19,7 @@
     <properties>
         <liquibase.version>4.32.0</liquibase.version>
         <junit.version>5.11.4</junit.version>
-        <junit-platform.version>1.11.4</junit-platform.version>
+        <junit-platform.version>1.13.1</junit-platform.version>
     </properties>
 
     <scm>
