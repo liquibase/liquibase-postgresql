@@ -5,21 +5,19 @@
     <parent>
         <groupId>org.liquibase</groupId>
         <artifactId>liquibase-parent-pom</artifactId>
-        <version>0.5.8</version>
+        <version>1.0.0</version>
     </parent>
 
     <groupId>org.liquibase.ext</groupId>
     <artifactId>liquibase-postgresql</artifactId>
-    <version>4.33.0-SNAPSHOT</version>
+    <version>5.0.1-SNAPSHOT</version>
 
     <name>Liquibase Postgresql Database Extension</name>
     <description>Adds additional Postgresql-specific Liquibase functionality</description>
     <url>https://github.com/liquibase/liquibase-postgresql</url>
 
     <properties>
-        <liquibase.version>4.33.0</liquibase.version>
-        <junit.version>5.11.4</junit.version>
-        <junit-platform.version>1.11.4</junit-platform.version>
+        <liquibase.version>5.0.1</liquibase.version>
     </properties>
 
     <scm>
@@ -57,7 +55,7 @@
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
-            <version>2.4</version>
+            <version>2.5</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -68,36 +66,6 @@
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>9.1-901-1.jdbc4</version>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-suite</artifactId>
-            <version>${junit-platform.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-launcher</artifactId>
-            <version>${junit-platform.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.vintage</groupId>
-            <artifactId>junit-vintage-engine</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
