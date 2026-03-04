@@ -80,4 +80,4 @@ Any issues can be logged in the [Github issue tracker](https://github.com/liquib
 
 ## License
 
-This project is licensed under the [Apache License Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.html).
+This project is licensed under the [Functional Source License, Version 1.1, ALv2 Future License (FSL-1.1-ALv2)](https://fsl.software/FSL-1.1-ALv2.template.md.html).
