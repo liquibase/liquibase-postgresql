@@ -5,19 +5,19 @@
     <parent>
         <groupId>org.liquibase</groupId>
         <artifactId>liquibase-parent-pom</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.2</version>
     </parent>
 
     <groupId>org.liquibase.ext</groupId>
     <artifactId>liquibase-postgresql</artifactId>
-    <version>5.0.2-SNAPSHOT</version>
+    <version>5.0.3-SNAPSHOT</version>
 
     <name>Liquibase Postgresql Database Extension</name>
     <description>Adds additional Postgresql-specific Liquibase functionality</description>
     <url>https://github.com/liquibase/liquibase-postgresql</url>
 
     <properties>
-        <liquibase.version>5.0.2</liquibase.version>
+        <liquibase.version>5.0.3</liquibase.version>
     </properties>
 
     <scm>
